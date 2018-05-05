@@ -8,5 +8,5 @@ listed in the [More Information](https://www.aerospike.com/docs/udf/udf_guide.ht
 of the UDF guide.
 
 ## Examples
- * [Protobuf using protobuf-lua](protobuf-lua-example/README.md)
+ * [Protobuf using protobuf-lua](protobuf-lua-example/)
 
