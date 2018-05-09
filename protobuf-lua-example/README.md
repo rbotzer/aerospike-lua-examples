@@ -30,8 +30,8 @@ to unpack the protobuf data from the record's bin, then return one of its fields
 ```sql
 $ aql
 Aerospike Query Client
-Version 3.15.1.2
-C Client Version 4.3.0
+Version 3.15.3.6
+C Client Version 4.3.11
 Copyright 2012-2017 Aerospike. All rights reserved.
 aql> register module 'pbuf.lua'
 OK, 1 module added.
@@ -39,20 +39,19 @@ OK, 1 module added.
 aql> register module 'person_pb.lua'
 OK, 1 module added.
 
-aql> register module 'pbuf.lua'
-OK, 1 module added.
-
 aql> show modules
-+--------------------------------------------+-----------------+-------+
-| hash                                       | module          | type  |
-+--------------------------------------------+-----------------+-------+
-| "e5b2f02687fa070649832bce6400e920b827b44e" | "person_pb.lua" | "lua" |
-| "f83e960f4c5ef4693ea06a3f1f4f6f356194d7f1" | "pbuf.lua"      | "lua" |
-+--------------------------------------------+-----------------+-------+
-2 rows in set (0.001 secs)
++-----------------+--------------------------------------------+-------+
+| filename        | hash                                       | type  |
++-----------------+--------------------------------------------+-------+
+| "person_pb.lua" | "e6dee5a956d7be0e8c016df612465c45e39bdd0a" | "LUA" |
+| "pbuf.lua"      | "9c714c1e2bbff24cea7531aac881f771ab9a896b" | "LUA" |
++-----------------+--------------------------------------------+-------+
+[127.0.0.1:3000] 2 rows in set (0.003 secs)
+
+OK
 
 aql> select * from test.foo where PK='1'
-Error: (2) AEROSPIKE_ERR_RECORD_NOT_FOUND
+Error: (2) 127.0.0.1:3000 AEROSPIKE_ERR_RECORD_NOT_FOUND
 
 aql> execute pbuf.vartix(123, 'Wil', 'wil.jamieson@gmail.com') on test.foo where PK='1'
 +--------+
@@ -62,13 +61,17 @@ aql> execute pbuf.vartix(123, 'Wil', 'wil.jamieson@gmail.com') on test.foo where
 +--------+
 1 row in set (0.001 secs)
 
+OK
+
 aql> select * from test.foo where PK='1'
-+-----------------------------------+
-| person                            |
-+-----------------------------------+
-| {Wilwil.jamieson@gmail.com" |
-+-----------------------------------+
++----------------------------------------------------------------------------------------------+
+| person                                                                                       |
++----------------------------------------------------------------------------------------------+
+| 12 03 57 69 6C 08 7B 1A 16 77 69 6C 2E 6A 61 6D 69 65 73 6F 6E 40 67 6D 61 69 6C 2E 63 6F 6D |
++----------------------------------------------------------------------------------------------+
 1 row in set (0.000 secs)
+
+OK
 
 aql> execute pbuf.velkor() on test.foo where PK='1'
 +--------+
@@ -77,6 +80,8 @@ aql> execute pbuf.velkor() on test.foo where PK='1'
 | 123    |
 +--------+
 1 row in set (0.000 secs)
+
+OK
 ```
 
 ### Tips
